@@ -25,18 +25,18 @@ export const validateName = (name: string): boolean => {
     return name.trim().length >= 2;
 };
 
-export const validatePrice = (price: any): boolean => {
-    const num = parseFloat(price);
+export const validatePrice = (price: string | number): boolean => {
+    const num = parseFloat(typeof price === "number" ? price.toString() : price);
     return !isNaN(num) && num > 0;
 };
 
-export const validateRating = (rating: any): boolean => {
-    const num = parseInt(rating);
+export const validateRating = (rating: string | number): boolean => {
+    const num = parseInt(typeof rating === "number" ? rating.toString() : rating);
     return num >= 1 && num <= 5;
 };
 
-export const validateQuantity = (quantity: any): boolean => {
-    const num = parseInt(quantity);
+export const validateQuantity = (quantity: string | number): boolean => {
+    const num = parseInt(typeof quantity === "number" ? quantity.toString() : quantity);
     return !isNaN(num) && num > 0;
 };
 
