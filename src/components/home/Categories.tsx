@@ -122,3 +122,7 @@ export default function Categories() {
     </section>
   );
 }
+
+//
+//
+//
