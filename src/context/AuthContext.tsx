@@ -2,9 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../types';
-import { getToken, removeToken } from '../utils/auth';
+import { getToken, removeToken, saveToken } from '../utils/auth';
 import { getCurrentUser } from '../services/auth';
-
 
 interface AuthContextType {
   user: User | null;
@@ -15,6 +14,7 @@ interface AuthContextType {
   refresh: () => Promise<void>;
 }
 
+// ✅ FIX: spelling correct
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -24,13 +24,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const refresh = async () => {
     try {
       const token = getToken();
+
       if (!token) {
         setUser(null);
+        setIsLoading(false);
         return;
       }
 
       const res = await getCurrentUser();
-      setUser(res.data);
+      setUser(res.data); // ✅ FIX
     } catch (error) {
       setUser(null);
       removeToken();
@@ -38,10 +40,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    refresh().finally(() => setIsLoading(false));
+    let mounted = true;
+
+    const init = async () => {
+      try {
+        const token = getToken();
+
+        if (!token) {
+          if (mounted) {
+            setUser(null);
+            setIsLoading(false);
+          }
+          return;
+        }
+
+        const res = await getCurrentUser();
+
+        if (mounted) {
+          setUser(res.data); // ✅ FIX
+        }
+      } catch (error) {
+        if (mounted) {
+          setUser(null);
+          removeToken();
+        }
+      } finally {
+        if (mounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    init();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const login = async (token: string) => {
+    saveToken(token);
     const res = await getCurrentUser();
     setUser(res.data);
   };

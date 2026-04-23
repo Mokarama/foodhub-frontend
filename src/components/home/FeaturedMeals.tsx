@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Meal } from '@/src/types';
 import api from '@/src/services/api';
 import { IoStar, IoArrowForward } from 'react-icons/io5';
+import { getImageUrl } from '@/src/utils/imageUrl';
 
 /**
  * FeaturedMeals — Fetches the first 6 meals from the API
@@ -28,6 +29,8 @@ export default function FeaturedMeals() {
     };
     fetchMeals();
   }, []);
+
+
 
   return (
     <section className="py-20 bg-gray-50">
@@ -77,7 +80,7 @@ export default function FeaturedMeals() {
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={meal.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'}
+                    src={getImageUrl(meal.image)}
                     alt={meal.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />

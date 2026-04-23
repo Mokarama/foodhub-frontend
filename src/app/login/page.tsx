@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { validateEmail } from '@/src/utils/validation';
 import { loginUser } from '@/src/services/auth';
-import { saveToken } from '@/src/utils/auth';
 import { IoMail, IoLockClosed } from 'react-icons/io5';
 
 /**
@@ -40,7 +39,6 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await loginUser(form);
-      saveToken(res.data.token);
       await login(res.data.token);
       router.push('/');
     } catch (err: any) {

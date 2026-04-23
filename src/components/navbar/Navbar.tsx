@@ -19,7 +19,8 @@ import {
   IoMoon,
   IoSunny,
   IoNotificationsOutline,
-  IoLanguageOutline
+  IoLanguageOutline,
+  IoReceipt
 } from 'react-icons/io5';
 import { useState, useEffect, useRef } from 'react';
 
@@ -183,7 +184,7 @@ export default function Navbar() {
 
                   {/* Cart Icon */}
                   <Link
-                    href="/checkout"
+                    href="/cart"
                     className="relative p-2 rounded-lg text-gray-600 hover:text-orange-600 hover:bg-orange-50 transition-all duration-200"
                   >
                     <IoCart size={24} />
@@ -228,6 +229,15 @@ export default function Navbar() {
                         </div>
 
                         <Link
+                          href="/profile"
+                          className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium transition"
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          <IoPersonCircle className="text-gray-400" />
+                          My Profile
+                        </Link>
+
+                        <Link
                           href="/dashboard"
                           className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium transition"
                           onClick={() => setShowUserMenu(false)}
@@ -248,14 +258,24 @@ export default function Navbar() {
                         )}
 
                         {user?.role === 'CUSTOMER' && (
-                          <Link
-                            href="/orders"
-                            className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium transition"
-                            onClick={() => setShowUserMenu(false)}
-                          >
-                            <IoCart className="text-gray-400" />
-                            My Orders
-                          </Link>
+                          <>
+                            <Link
+                              href="/cart"
+                              className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium transition"
+                              onClick={() => setShowUserMenu(false)}
+                            >
+                              <IoCart className="text-gray-400" />
+                              My Cart
+                            </Link>
+                            <Link
+                              href="/orders"
+                              className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium transition"
+                              onClick={() => setShowUserMenu(false)}
+                            >
+                              <IoReceipt className="text-gray-400" />
+                              My Orders
+                            </Link>
+                          </>
                         )}
 
                         {user?.role === 'ADMIN' && (
@@ -289,7 +309,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2 md:hidden">
               {isAuthenticated && (
                 <Link
-                  href="/checkout"
+                  href="/cart"
                   className="relative p-2 rounded-lg text-gray-600"
                 >
                   <IoCart size={22} />

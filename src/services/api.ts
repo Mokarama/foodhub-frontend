@@ -1,17 +1,11 @@
 import axios from 'axios';
 
-/**
- * API Service Layer
- * Central Axios instance with auth token injection and 401 auto-logout.
- * All backend endpoint functions are exported from here.
- */
-
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_URL,
   timeout: 15000,
+  withCredentials: true,
 });
 
 // ── Request interceptor: attach JWT token ──
@@ -36,7 +30,7 @@ api.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export { api };
@@ -45,35 +39,35 @@ export default api;
 // ============================================
 //  AUTH endpoints
 // ============================================
-export const registerUser = async (data: {
+export const registerUser = (data: {
   name: string;
   email: string;
   password: string;
   role: string;
 }) => api.post('/auth/register', data);
 
-export const loginUser = async (data: { email: string; password: string }) =>
+export const loginUser = (data: { email: string; password: string }) =>
   api.post('/auth/login', data);
 
-export const getCurrentUser = async () => api.get('/auth/me');
+export const getCurrentUser = () => api.get('/auth/me');
 
 // ============================================
-//  FOOD IMAGES endpoints
+//  FOOD IMAGES endpoints (FIXED)
 // ============================================
-export const getFoodImages = async () => api.get('/foods/images');
+export const getFoodImages = () => api.get('/foods'); // 🔥 fixed
 
 // ============================================
 //  MEAL endpoints
 // ============================================
-export const getMeals = async (params?: {
+export const getMeals = (params?: {
   categoryId?: string;
   minPrice?: string;
   maxPrice?: string;
 }) => api.get('/meals', { params });
 
-export const getMealById = async (id: string) => api.get(`/meals/${id}`);
+export const getMealById = (id: string) => api.get(`/meals/${id}`);
 
-export const createMeal = async (data: {
+export const createMeal = (data: {
   name: string;
   price: number;
   description: string;
@@ -81,7 +75,7 @@ export const createMeal = async (data: {
   categoryId: string;
 }) => api.post('/meals', data);
 
-export const updateMeal = async (
+export const updateMeal = (
   id: string,
   data: Partial<{
     name: string;
@@ -89,68 +83,68 @@ export const updateMeal = async (
     description: string;
     image: string;
     categoryId: string;
-  }>,
+  }>
 ) => api.put(`/meals/${id}`, data);
 
-export const deleteMeal = async (id: string) => api.delete(`/meals/${id}`);
+export const deleteMeal = (id: string) => api.delete(`/meals/${id}`);
 
 // ============================================
 //  ORDER endpoints
 // ============================================
-export const createOrder = async (data: {
+export const createOrder = (data: {
   items: Array<{ mealId: string; quantity: number }>;
   address: string;
 }) => api.post('/orders', data);
 
-export const getUserOrders = async () => api.get('/orders');
+export const getUserOrders = () => api.get('/orders');
 
-export const getOrderById = async (id: string) => api.get(`/orders/${id}`);
+export const getOrderById = (id: string) => api.get(`/orders/${id}`);
 
-export const updateOrderStatus = async (id: string, status: string) =>
+export const updateOrderStatus = (id: string, status: string) =>
   api.patch(`/orders/${id}/status`, { status });
 
 // ============================================
 //  REVIEW endpoints
 // ============================================
-export const getReviews = async (mealId?: string) =>
+export const getReviews = (mealId?: string) =>
   api.get('/reviews', { params: mealId ? { mealId } : {} });
 
-export const createReview = async (data: {
+export const createReview = (data: {
   mealId: string;
   rating: number;
   comment?: string;
 }) => api.post('/reviews', data);
 
 // ============================================
-//  CATEGORY endpoints (public)
+//  CATEGORY endpoints
 // ============================================
-export const getCategories = async () => api.get('/categories');
+export const getCategories = () => api.get('/categories');
 
-export const createCategory = async (name: string) =>
+export const createCategory = (name: string) =>
   api.post('/categories', { name });
 
 // ============================================
 //  ADMIN endpoints
 // ============================================
-export const adminGetUsers = async () => api.get('/admin/users');
+export const adminGetUsers = () => api.get('/admin/users');
 
-export const adminUpdateUserStatus = async (id: string, status: string) =>
+export const adminUpdateUserStatus = (id: string, status: string) =>
   api.patch(`/admin/users/${id}`, { status });
 
-export const adminGetAllOrders = async () => api.get('/admin/orders');
+export const adminGetAllOrders = () => api.get('/admin/orders');
 
-export const adminGetCategories = async () => api.get('/admin/categories');
+export const adminGetCategories = () => api.get('/admin/categories');
 
-export const adminCreateCategory = async (name: string) =>
+export const adminCreateCategory = (name: string) =>
   api.post('/admin/categories', { name });
 
-export const adminDeleteCategory = async (id: string) =>
+export const adminDeleteCategory = (id: string) =>
   api.delete(`/admin/categories/${id}`);
 
 // ============================================
 //  WISHLIST endpoints
 // ============================================
-export const toggleWishlist = async (mealId: string) =>
+export const toggleWishlist = (mealId: string) =>
   api.post('/wishlist', { mealId });
 
-export const getWishlist = async () => api.get('/wishlist');
+export const getWishlist = () => api.get('/wishlist');

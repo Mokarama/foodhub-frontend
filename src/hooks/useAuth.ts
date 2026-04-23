@@ -2,14 +2,29 @@
 
 import { useEffect, useState } from "react";
 import { getToken } from "../utils/auth";
-
+import { getCurrentUser } from "../services/auth"; // ✅ add
 
 export default function useAuth() {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    const token = getToken();
-    setIsAuth(!!token);
+    const checkAuth = async () => {
+      const token = getToken();
+
+      if (!token) {
+        setIsAuth(false);
+        return;
+      }
+
+      try {
+        await getCurrentUser(); // ✅ backend verify
+        setIsAuth(true);
+      } catch {
+        setIsAuth(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   return isAuth;

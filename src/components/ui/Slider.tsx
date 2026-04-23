@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
+import { getImageUrl } from '@/src/utils/imageUrl';
 
 // Define the interface for slider images
 export interface SlideImage {
@@ -41,12 +42,7 @@ export default function Slider({ images, autoSlideInterval = 5000 }: SliderProps
     setCurrentIndex(index);
   };
 
-  // Construct absolute URL for images from backend
-  const getImageUrl = (url: string) => {
-    if (url.startsWith('http')) return url;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
-    return `${baseUrl}/public${url}`;
-  };
+
 
   if (images.length === 0) {
     return (

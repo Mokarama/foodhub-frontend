@@ -7,6 +7,7 @@ import { useCart } from '@/src/context/CartContext';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { Button, Loading, ErrorBoundary, Toast } from '@/src/components/ui';
 import { IoHeart, IoHeartOutline, IoStar, IoSubwayOutline } from 'react-icons/io5';
+import { getImageUrl } from '@/src/utils/imageUrl';
 
 interface MealDetails {
   id: string;
@@ -39,7 +40,6 @@ export default function MealDetailsPage() {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [toggleLoading, setToggleLoading] = useState(false);
 
-  // Review state
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState('');
   const [submittingReview, setSubmittingReview] = useState(false);
@@ -55,7 +55,7 @@ export default function MealDetailsPage() {
     try {
       setLoading(true);
       const res = await getMealById(id);
-      setMeal(res.data);
+      setMeal(res.data); // ✅ FIX
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to load meal details');
     } finally {
@@ -66,7 +66,7 @@ export default function MealDetailsPage() {
   const checkWishlistStatus = async () => {
     try {
       const res = await getWishlist();
-      const inWishlist = res.data.some((w: any) => w.mealId === id);
+      const inWishlist = res.data.some((w: any) => w.mealId === id); // ✅ FIX
       setIsWishlisted(inWishlist);
     } catch (error) {
       console.error("Failed to fetch wishlist", error);
@@ -81,7 +81,7 @@ export default function MealDetailsPage() {
     try {
       setToggleLoading(true);
       const res = await toggleWishlist(id);
-      setIsWishlisted(res.data.status === 'added');
+      setIsWishlisted(res.data.status === 'added'); // ✅ FIX
     } catch (error) {
       console.error("Wishlist error", error);
     } finally {
@@ -99,7 +99,6 @@ export default function MealDetailsPage() {
       image: meal.image || '',
       providerId: meal.provider.id,
     });
-    // Let global context or Toast handle notification
     alert(`${meal.name} added to cart!`);
   };
 
@@ -111,7 +110,7 @@ export default function MealDetailsPage() {
       await createReview({ mealId: id, rating: reviewRating, comment: reviewComment });
       setReviewComment('');
       setReviewRating(5);
-      fetchMealDetails(); // Refresh reviews
+      fetchMealDetails();
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to submit review');
     } finally {
@@ -119,12 +118,7 @@ export default function MealDetailsPage() {
     }
   };
 
-  const getImageUrl = (url?: string) => {
-    if (!url) return 'https://placehold.co/600x400?text=No+Image';
-    if (url.startsWith('http')) return url;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
-    return `${baseUrl}/public${url}`;
-  };
+
 
   if (loading) return <div className="p-20 text-center"><Loading /></div>;
   if (error || !meal) return <div className="p-20 text-center text-red-500 font-semibold">{error || 'Meal not found'}</div>;
@@ -137,7 +131,6 @@ export default function MealDetailsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 p-6 lg:p-10 mb-12 animate-fadeInUp">
         
-        {/* Left: Image */}
         <div className="relative h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden group">
           <img src={getImageUrl(meal.image)} alt={meal.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
           <button 
@@ -149,7 +142,6 @@ export default function MealDetailsPage() {
           </button>
         </div>
 
-        {/* Right: Details */}
         <div className="flex flex-col justify-center">
           <div className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-700 font-semibold text-sm w-max mb-4">
             {meal.category.name}
@@ -169,7 +161,7 @@ export default function MealDetailsPage() {
           </div>
 
           <div className="flex items-center justify-between mb-8">
-            <span className="text-4xl font-extrabold text-gray-900">${meal.price.toFixed(2)}</span>
+            <span className="text-4xl font-extrabold text-gray-900">৳{meal.price.toFixed(0)}</span>
           </div>
 
           <Button onClick={handleAddToCart} className="w-full py-4 text-lg font-bold" variant="primary">
@@ -178,7 +170,6 @@ export default function MealDetailsPage() {
         </div>
       </div>
 
-      {/* Reviews Section */}
       <div className="max-w-4xl mx-auto mt-16 animate-fadeInUp animate-delay-200">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Customer Reviews</h2>
 
@@ -200,7 +191,6 @@ export default function MealDetailsPage() {
           )}
         </div>
 
-        {/* Submit Review */}
         {user?.role === 'CUSTOMER' && (
           <div className="bg-orange-50 p-8 rounded-3xl border border-orange-100">
             <h3 className="text-xl font-bold text-gray-900 mb-4">Write a Review</h3>

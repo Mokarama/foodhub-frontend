@@ -23,14 +23,7 @@ export default function AdminFoodsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    if (user && user.role !== 'ADMIN') {
-      router.push('/dashboard');
-    } else {
-      fetchMeals();
-    }
-  }, [user]);
-
+ 
   const fetchMeals = async () => {
     try {
       setLoading(true);
@@ -42,6 +35,17 @@ export default function AdminFoodsPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // ✅ safer check
+    if (!user) return;
+
+    if (user.role !== 'ADMIN') {
+      router.push('/dashboard');
+    } else {
+      fetchMeals();
+    }
+  }, [user, router]);
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to completely delete this meal?')) return;
@@ -108,7 +112,7 @@ export default function AdminFoodsPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4">{meal.provider.name}</td>
-                  <td className="px-6 py-4 font-bold text-orange-600">Rs. {meal.price.toLocaleString()}</td>
+                  <td className="px-6 py-4 font-bold text-orange-600">৳ {meal.price.toLocaleString()}</td>
                   <td className="px-6 py-4 text-right">
                     <button 
                       onClick={() => handleDelete(meal.id)}

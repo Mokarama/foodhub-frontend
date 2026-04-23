@@ -1,4 +1,4 @@
-import './globals.css';
+import "../app/globals.css";
 import Navbar from '@/src/components/navbar/Navbar';
 import Footer from '@/src/components/footer/Footer';
 import { AuthProvider } from '@/src/context/AuthContext';
