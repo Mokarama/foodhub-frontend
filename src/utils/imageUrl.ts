@@ -7,7 +7,7 @@ export const getImageUrl = (url?: string) => {
   if (url.startsWith('http')) return url;
   
   // Use the API URL from environment variables, stripping the /api suffix to get the base
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || '';
   
   // Ensure the relative path starts with a slash
   const cleanPath = url.startsWith('/') ? url : `/${url}`;

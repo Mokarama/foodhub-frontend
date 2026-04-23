@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Meal } from '@/src/types';
-import api from '@/src/services/api';
+import api from '@/src/lib/api';
 import { IoStar, IoSearch } from 'react-icons/io5';
 import { getImageUrl } from '@/src/utils/imageUrl';
 

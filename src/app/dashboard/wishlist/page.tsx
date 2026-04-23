@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getWishlist, toggleWishlist } from '@/src/services/api';
+import { getWishlist, toggleWishlist } from '@/src/lib/api';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { useCart } from '@/src/context/CartContext';
 import { Loading, Button } from '@/src/components/ui';

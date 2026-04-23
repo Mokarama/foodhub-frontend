@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Slider } from '@/src/components/ui';
-import { getFoodImages } from '@/src/services/api';
+import { getFoodImages } from '@/src/lib/api';
 import { SlideImage } from '@/src/components/ui/Slider';
 
 import { useLanguage } from '@/src/context/LanguageContext';

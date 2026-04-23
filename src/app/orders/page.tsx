@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/src/context/AuthContext';
-import { getUserOrders } from '@/src/services/api';
+import { getUserOrders } from '@/src/lib/api';
 import { Loading, Card, Toast } from '@/src/components/ui';
 import { Order, OrderStatus } from '@/src/types';
 import { IoReceipt, IoArrowForward } from 'react-icons/io5';

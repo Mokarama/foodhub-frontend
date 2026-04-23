@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getOrderById } from '@/src/services/api';
+import { getOrderById } from '@/src/lib/api';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { Card, Button, Loading } from '@/src/components/ui';
 import { IoArrowBack, IoReceiptOutline, IoLocationOutline, IoTimeOutline, IoCheckmarkCircle, IoCheckmarkCircleOutline } from 'react-icons/io5';

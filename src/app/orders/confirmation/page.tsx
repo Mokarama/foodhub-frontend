@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button, Card, Loading } from '@/src/components/ui';
-import { getOrderById } from '@/src/services/api';
+import { getOrderById } from '@/src/lib/api';
 import { IoCheckmarkCircle, IoArrowForward } from 'react-icons/io5';
 
 interface OrderDetails {

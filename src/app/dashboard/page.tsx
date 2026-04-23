@@ -4,7 +4,7 @@ import ProtectedRoute from '@/src/components/ProtectedRoute';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getUserOrders, getMeals } from '@/src/services/api';
+import { getUserOrders, getMeals } from '@/src/lib/api';
 import { Card, Loading } from '@/src/components/ui';
 import { Order } from '@/src/types';
 import {

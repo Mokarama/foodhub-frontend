@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/src/context/AuthContext';
-import api from '@/src/services/api';
+import api from '@/src/lib/api';
 import { Card, Button, Input, Loading } from '@/src/components/ui';
 import { IoCloudUpload, IoCheckmarkCircle } from 'react-icons/io5';
 

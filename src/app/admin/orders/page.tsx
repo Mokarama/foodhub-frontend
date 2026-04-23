@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthContext } from '@/src/context/AuthContext';
-import { adminGetAllOrders, updateOrderStatus } from '@/src/services/api';
+import { adminGetAllOrders, updateOrderStatus } from '@/src/lib/api';
 import { Card, Loading, Toast } from '@/src/components/ui';
 import { Order } from '@/src/types';
 import { IoPeople, IoReceipt, IoGrid } from 'react-icons/io5';

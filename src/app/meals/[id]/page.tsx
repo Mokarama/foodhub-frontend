@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getMealById, getReviews, createReview, toggleWishlist, getWishlist } from '@/src/services/api';
+import { getMealById, getReviews, createReview, toggleWishlist, getWishlist } from '@/src/lib/api';
 import { useCart } from '@/src/context/CartContext';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { Button, Loading, ErrorBoundary, Toast } from '@/src/components/ui';

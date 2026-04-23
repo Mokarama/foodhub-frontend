@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthContext } from '@/src/context/AuthContext';
-import { adminGetUsers, adminUpdateUserStatus } from '@/src/services/api';
+import { adminGetUsers, adminUpdateUserStatus } from '@/src/lib/api';
 import { Card, Loading, Toast, Button } from '@/src/components/ui';
 import { User } from '@/src/types';
 import {

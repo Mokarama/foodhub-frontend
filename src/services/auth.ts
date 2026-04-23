@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../lib/api';
 
 /**
  * Auth service — thin wrappers for backward compatibility.

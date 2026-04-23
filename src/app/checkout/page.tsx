@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/src/context/CartContext';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { Button, Card, Loading, Toast } from '@/src/components/ui';
-import api, { createOrder } from '@/src/services/api';
+import api, { createOrder } from '@/src/lib/api';
 import { validateAddress } from '@/src/utils/validation';
 import { IoArrowBack, IoTrash, IoAdd, IoRemove } from 'react-icons/io5';
 

@@ -8,7 +8,7 @@ import {
   adminGetCategories,
   adminCreateCategory,
   adminDeleteCategory,
-} from '@/src/services/api';
+} from '@/src/lib/api';
 import { Card, Loading, Toast, Button, Input } from '@/src/components/ui';
 import { Category } from '@/src/types';
 import { IoPeople, IoReceipt, IoGrid, IoTrash, IoAdd } from 'react-icons/io5';

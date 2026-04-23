@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getMeals, deleteMeal } from '@/src/services/api';
+import { getMeals, deleteMeal } from '@/src/lib/api';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { Button, Loading, Toast } from '@/src/components/ui';
 import { IoTrash, IoSearch } from 'react-icons/io5';

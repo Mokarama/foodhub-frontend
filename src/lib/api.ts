@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
-  timeout: 15000,
   withCredentials: true,
 });
 
@@ -52,9 +51,9 @@ export const loginUser = (data: { email: string; password: string }) =>
 export const getCurrentUser = () => api.get('/auth/me');
 
 // ============================================
-//  FOOD IMAGES endpoints (FIXED)
+//  FOOD IMAGES endpoints
 // ============================================
-export const getFoodImages = () => api.get('/foods'); // 🔥 fixed
+export const getFoodImages = () => api.get('/foods');
 
 // ============================================
 //  MEAL endpoints
