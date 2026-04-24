@@ -37,7 +37,7 @@ export default function AdminFoodsPage() {
   };
 
   useEffect(() => {
-    // ✅ safer check
+   
     if (!user) return;
 
     if (user.role !== 'ADMIN') {

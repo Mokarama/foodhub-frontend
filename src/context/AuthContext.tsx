@@ -14,7 +14,7 @@ interface AuthContextType {
   refresh: () => Promise<void>;
 }
 
-// ✅ FIX: spelling correct
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       const res = await getCurrentUser();
-      setUser(res.data); // ✅ FIX
+      setUser(res.data); 
     } catch (error) {
       setUser(null);
       removeToken();
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const res = await getCurrentUser();
 
         if (mounted) {
-          setUser(res.data); // ✅ FIX
+          setUser(res.data);
         }
       } catch (error) {
         if (mounted) {

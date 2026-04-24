@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getToken } from "../utils/auth";
-import { getCurrentUser } from "../services/auth"; // ✅ add
+import { getCurrentUser } from "../services/auth";
 
 export default function useAuth() {
   const [isAuth, setIsAuth] = useState(false);
@@ -17,7 +17,7 @@ export default function useAuth() {
       }
 
       try {
-        await getCurrentUser(); // ✅ backend verify
+        await getCurrentUser();
         setIsAuth(true);
       } catch {
         setIsAuth(false);

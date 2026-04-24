@@ -6,11 +6,17 @@ export const getImageUrl = (url?: string) => {
   if (!url) return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
   if (url.startsWith('http')) return url;
   
-  // Use the API URL from environment variables, stripping the /api suffix to get the base
-  const baseUrl = (process.env.NEXT_PUBLIC_API_URL || '').trim().replace('/api', '');
-  
-  // Ensure the relative path starts with a slash
   const cleanPath = url.startsWith('/') ? url : `/${url}`;
   
+  // Use the API URL from environment variables, stripping the /api suffix to get the base
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+  const baseUrl = apiUrl.trim().replace('/api', '');
+  
+  // If the path already includes /public, just prepend the baseUrl
+  if (cleanPath.startsWith('/public/')) {
+    return `${baseUrl}${cleanPath}`;
+  }
+  
+  // Construct absolute URL pointing to the backend's public folder
   return `${baseUrl}/public${cleanPath}`;
 };

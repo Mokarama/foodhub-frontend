@@ -77,6 +77,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: t('nav.home') },
     { href: '/meals', label: t('nav.meals') },
+    { href: '/providers', label: 'Providers' },
   ];
 
   if (user?.role === 'PROVIDER') {
@@ -254,6 +255,17 @@ export default function Navbar() {
                           >
                             <IoRestaurant className="text-gray-400" />
                             My Meals
+                          </Link>
+                        )}
+
+                        {user?.role === 'PROVIDER' && (
+                          <Link
+                            href="/provider/orders"
+                            className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium transition"
+                            onClick={() => setShowUserMenu(false)}
+                          >
+                            <IoReceipt className="text-gray-400" />
+                            Manage Orders
                           </Link>
                         )}
 

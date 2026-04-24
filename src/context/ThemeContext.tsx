@@ -22,7 +22,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setTheme(storedTheme);
       applyTheme(storedTheme);
     } else {
-      // System preference
+     
+
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         setTheme('dark');
         applyTheme('dark');
@@ -45,8 +46,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyTheme(newTheme);
   };
 
-  // Wait to avoid aggressive hydration mismatches on icons
-  // But STILL wrap in Provider to prevent context crash!
+  
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}

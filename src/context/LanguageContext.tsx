@@ -81,7 +81,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   const t = (key: keyof typeof translations.en) => {
-    // Fallback to English if translation is missing
+    
+    
     return translations[lang][key] || translations['en'][key] || key;
   };
 

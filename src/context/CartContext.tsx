@@ -40,7 +40,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setIsLoaded(true);
   }, []);
 
-  // Save cart to localStorage whenever it changes
+  
+  
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem('foodhub_cart', JSON.stringify(items));

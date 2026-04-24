@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL?.trim();
+const API_URL = process.env.NEXT_PUBLIC_API_URL?.trim() || 'http://localhost:5000/api';
+console.log("Axios API_URL:", API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
@@ -18,7 +19,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// ── Response interceptor: auto-logout on 401 ──
+// auto-logout on 401 
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -35,9 +36,9 @@ api.interceptors.response.use(
 export { api };
 export default api;
 
-// ============================================
+
 //  AUTH endpoints
-// ============================================
+
 export const registerUser = (data: {
   name: string;
   email: string;
@@ -50,14 +51,13 @@ export const loginUser = (data: { email: string; password: string }) =>
 
 export const getCurrentUser = () => api.get('/auth/me');
 
-// ============================================
+
 //  FOOD IMAGES endpoints
-// ============================================
+
 export const getFoodImages = () => api.get('/foods');
 
-// ============================================
 //  MEAL endpoints
-// ============================================
+
 export const getMeals = (params?: {
   categoryId?: string;
   minPrice?: string;
@@ -87,9 +87,8 @@ export const updateMeal = (
 
 export const deleteMeal = (id: string) => api.delete(`/meals/${id}`);
 
-// ============================================
-//  ORDER endpoints
-// ============================================
+// ORDER endpoints
+
 export const createOrder = (data: {
   items: Array<{ mealId: string; quantity: number }>;
   address: string;
@@ -102,9 +101,9 @@ export const getOrderById = (id: string) => api.get(`/orders/${id}`);
 export const updateOrderStatus = (id: string, status: string) =>
   api.patch(`/orders/${id}/status`, { status });
 
-// ============================================
+
 //  REVIEW endpoints
-// ============================================
+
 export const getReviews = (mealId?: string) =>
   api.get('/reviews', { params: mealId ? { mealId } : {} });
 
@@ -114,17 +113,17 @@ export const createReview = (data: {
   comment?: string;
 }) => api.post('/reviews', data);
 
-// ============================================
+
 //  CATEGORY endpoints
-// ============================================
+
 export const getCategories = () => api.get('/categories');
 
 export const createCategory = (name: string) =>
   api.post('/categories', { name });
 
-// ============================================
-//  ADMIN endpoints
-// ============================================
+
+//ADMIN endpoints
+
 export const adminGetUsers = () => api.get('/admin/users');
 
 export const adminUpdateUserStatus = (id: string, status: string) =>
@@ -140,9 +139,8 @@ export const adminCreateCategory = (name: string) =>
 export const adminDeleteCategory = (id: string) =>
   api.delete(`/admin/categories/${id}`);
 
-// ============================================
 //  WISHLIST endpoints
-// ============================================
+
 export const toggleWishlist = (mealId: string) =>
   api.post('/wishlist', { mealId });
 
